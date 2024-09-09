@@ -2,19 +2,17 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Locale;
+import java.util.*;
 
-public class WordsHelper {
+public class Dictionary {
 
     public static ArrayList<String> readFileInList(String filepath, int min) throws IOException {
         String text = Files.readString(Path.of(filepath));
-        String result = text.replaceAll("\\p{Punct}|\\n|\\r", " ");
+        String result = text.replaceAll("\\p{Punct}|\\n|\\r|\u2026", " ");
         String[] splitText = result.split(" ");
         ArrayList<String> words = new ArrayList<>();
         for (String word : splitText) {
-            if (word.length() > min) {
+            if (word.length() >= min) {
                 words.add(word.toLowerCase(Locale.ROOT));
             }
         }
@@ -22,17 +20,17 @@ public class WordsHelper {
     }
 
     public static HashMap<String, Integer> wordСounter(ArrayList<String> words) {
-        HashMap<String, Integer> wordCount = new HashMap<>();
-        for (String word : words) {
-            String wordBase = word.substring(0, word.length() - 2);
-            if (wordCount.containsKey(wordBase)) {
-                int value = wordCount.get(word);
-                wordCount.replace(word, value,
-                        ++value);
+        HashMap<String, Integer> countWord = new HashMap<>();
+        words.trimToSize();
+        for (int i = 0; i < words.size(); i++) {
+            String addWord = words.get(i);
+            if (countWord.containsKey(addWord)) {
+                        int count = countWord.get(addWord);
+                        countWord.put(addWord, ++count);
             } else {
-                wordCount.put(word, 1);
+                countWord.put(addWord, 1);
             }
         }
-        return wordCount;
+        return countWord;
     }
 }

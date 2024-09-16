@@ -1,3 +1,5 @@
+package ru.aston.lesson11;
+
 import com.github.javafaker.Faker;
 
 import java.io.IOException;
@@ -11,15 +13,10 @@ public class Test {
 
     @org.junit.jupiter.api.Test
     void testWord() throws IOException {
-        ArrayList<String> wordsList = Dictionary.readFileInList("./txt/Text.txt", 3);
-        HashMap<String, Integer> wordCount = Dictionary.wordСounter(wordsList);
-        String format = "|%1$-20.18s| ";
-        System.out.format(format, "СЛОВО");
-        System.out.println("СКОЛЬКО РАЗ ВСТРЕЧАЕТСЯ В ТЕКСТЕ");
-        wordCount.entrySet().forEach(entry -> {
-            System.out.format(format, entry.getKey());
-            System.out.println(entry.getValue());
-        });
+        Dictionary dictionary = new Dictionary();
+        ArrayList<String> wordsList = dictionary.readFileInList("./txt/Text.txt", 3);
+        HashMap<String, Integer> wordCount = dictionary.wordСounter(wordsList);
+
     }
 
     @org.junit.jupiter.api.Test
@@ -32,7 +29,7 @@ public class Test {
         // поиск несуществующего имени
         phoneDirectory.get("Ivan");
         // добавляем вторые номера к существующим
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 10; i++) {
             String name = phoneDirectory.getRandom();
             phoneDirectory.add(name, faker.phoneNumber().phoneNumber());
         }

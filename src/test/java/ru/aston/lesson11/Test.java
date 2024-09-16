@@ -26,8 +26,7 @@ public class Test {
         for (int i = 0; i < 10; i++) {
             phoneDirectory.add(faker.name().firstName(), faker.phoneNumber().phoneNumber());
         }
-        // поиск несуществующего имени
-        phoneDirectory.get("Ivan");
+
         // добавляем вторые номера к существующим
         for (int i = 0; i < 10; i++) {
             String name = phoneDirectory.getRandom();

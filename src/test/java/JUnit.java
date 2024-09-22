@@ -1,14 +1,11 @@
-package ru.aston.fac;
-
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.Random;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static ru.aston.fac.FactorialCalc.getFactorial;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class FactorialTest {
+public class JUnit {
+    FactorialCalc calc = new FactorialCalc();
     private int n;
     private int expected;
     private int actual;
@@ -18,25 +15,25 @@ public class FactorialTest {
     void factorialOfPositiveNumber() {
         n = 6;
         expected = 720;
-        actual = getFactorial(n);
+        actual = calc.getFactorial(n);
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("Factorial of the One")
     void factorialOne() {
-        n = 0;
+        n = 1;
         expected = 1;
-        actual = getFactorial(n);
+        actual = calc.getFactorial(n);
         assertEquals(expected, actual);
     }
 
     @Test
     @DisplayName("Factorial of zero")
     void factorialZero() {
-        n = 1;
+        n = 0;
         expected = 1;
-        actual = getFactorial(n);
+        actual = calc.getFactorial(n);
         assertEquals(expected, actual);
     }
 
@@ -44,8 +41,8 @@ public class FactorialTest {
     @DisplayName("The factorial of a negative number")
     void factorialNegative() {
         n = -1;
-        expected = 0;
-        actual = getFactorial(n);
-        assertEquals(expected, actual);
+        assertThrows(NegativeNumberException.class, () -> {
+            calc.getFactorial(n);
+        });
     }
 }
